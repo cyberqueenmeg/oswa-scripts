@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # make directory for results
 echo "Creating directory $1."
 mkdir $1
