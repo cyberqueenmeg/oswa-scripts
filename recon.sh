@@ -6,13 +6,22 @@ mkdir $1
 
 # nmap scan
 echo "Executing basic nmap scan"
-nmap -sV -Pn $1 > $1/nmap
+nmap -p- -sV -sS -Pn -A $1 > $1/nmap
 echo "Nmap basic scan complete"
 
 # gobuster enum
-echo "Running gobuster to find directories"
-sudo gobuster dir -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://$1 > $1/gobuster
-echo "Directory discovery complete"
+echo "Running gobuster to find endpoints"
+gobuster dir -u $1 -w /usr/share/seclists/Discovery/Web-Content/raft-large-directories.txt > $1/gobuster-end
+echo "Endpoint discovery complete"
+
+echo "Running gobuster to find subdomains"
+sudo gobuster dir -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-110000.txt -u http://$1 > $1/gobuster-sub
+echo "Subdomain discovery complete"
+
+#wfuzz enum
+echo "Running wfuzz to find files"
+wfuzz -c -z file,/usr/share/seclists/Discovery/Web-Content/raft-large-files.txt --hc 301,404 "$1/FUZZ" > $1/file-enum
+echo "File discovery complete"
 
 # nmap vulners
 echo "Running nmap vulners scan"
